@@ -148,7 +148,7 @@ def train(model, generated_image, initial_image):
         sess.run(tf.global_variables_initializer())
         ###############################
         sess.run(generated_image.assign(initial_image))
-        ckpt = tf.train.get_checkpoint_state(os.path.dirname('checkpoints/checkpoint'))
+        ckpt = tf.train.get_checkpoint_state(os.path.dirname('checkpoints/style/checkpoints'))
         if ckpt and ckpt.model_checkpoint_path:
             saver.restore(sess, ckpt.model_checkpoint_path)
         initial_step = model['global_step'].eval()
@@ -179,7 +179,7 @@ def train(model, generated_image, initial_image):
                 utils.save_image(filename, gen_image)
 
                 if (index + 1) % 20 == 0:
-                    saver.save(sess, 'checkpoints/style_transfer', index)
+                    saver.save(sess, 'checkpoints/style', index)
 
 def main():
     with tf.variable_scope('input') as scope:
